@@ -79,7 +79,7 @@ class DBStorage:
         """get all cls"""
         all_cls = models.storage.all(cls)
         check = cls + '.' + id
-        for key, value in all_cls:
+        for key, value in all_cls.items():
             if key == check:
                 return value
         return None

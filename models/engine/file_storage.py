@@ -73,7 +73,7 @@ class FileStorage:
         """get all cls"""
         all_cls = self.all(cls)
         check = cls + '.' + id
-        for key, value in all_cls:
+        for key, value in all_cls.items():
             if key == check:
                 return value
         return None
