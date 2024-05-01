@@ -88,3 +88,4 @@ class FileStorage:
             return len(all_cls)
         if cls not in classes.values():
             return None
+

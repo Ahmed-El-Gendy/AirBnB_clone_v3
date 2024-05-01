@@ -76,6 +76,7 @@ class DBStorage:
         self.__session.remove()
 
     def get(self, cls, id):
+
         if cls and id:
             if cls in classes.values() and isinstance(id, str):
                 obj = self.__session.query(cls).get(id)
@@ -93,3 +94,4 @@ class DBStorage:
             return len(all_cls)
         if cls not in classes.values():
             return None
+
