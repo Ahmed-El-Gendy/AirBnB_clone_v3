@@ -8,6 +8,7 @@ from models.state import State
 import uuid
 from models.city import City
 
+
 @app_views.route('/cities/<city_id>', methods=['GET'])
 def get_city(city_id):
     '''get the city whith id = city_id'''
@@ -16,6 +17,7 @@ def get_city(city_id):
     if city == []:
         abort(404)
     return jsonify(city[0])
+
 
 @app_views.route('/cities/<city_id>', methods=['PUT'])
 def updates_city(city_id):
@@ -33,6 +35,7 @@ def updates_city(city_id):
     storage.save()
     return jsonify(city[0]), 200
 
+
 @app_views.route('/cities/<city_id>', methods=['DELETE'])
 def delete_city(city_id):
     '''Deletes a City with id  = city_id'''
@@ -47,6 +50,7 @@ def delete_city(city_id):
             storage.save()
     return jsonify({}), 200
 
+
 @app_views.route('/states/<state_id>/cities', methods=['GET'])
 @app_views.route('/states/<state_id>/cities/', methods=['GET'])
 def list_cities_of_state(state_id):
@@ -56,9 +60,10 @@ def list_cities_of_state(state_id):
     if state == []:
         abort(404)
     cities = storage.all("City").values()
-    all_cities = [inst.to_dict() for inst in cities
-                   if state_id == inst.state_id]
+    all_cities = [inst.to_dict()
+                  for inst in cities if state_id == inst.state_id]
     return jsonify(all_cities)
+
 
 @app_views.route('/states/<state_id>/cities', methods=['POST'])
 @app_views.route('/states/<state_id>/cities/', methods=['POST'])

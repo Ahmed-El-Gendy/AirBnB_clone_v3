@@ -14,6 +14,7 @@ def list_states():
     states = [inst.to_dict() for inst in storage.all("State").values()]
     return jsonify(states)
 
+
 @app_views.route('/states/<state_id>', methods=['GET'])
 def get_state(state_id):
     '''get one state'''
@@ -22,6 +23,7 @@ def get_state(state_id):
     if state == []:
         abort(404)
     return jsonify(state[0])
+
 
 @app_views.route('/states/<state_id>', methods=['DELETE'])
 def delete_state(state_id):
@@ -37,6 +39,7 @@ def delete_state(state_id):
             storage.save()
     return jsonify({}), 200
 
+
 @app_views.route('/states/', methods=['POST'])
 def create_state():
     '''Creates'''
@@ -50,6 +53,7 @@ def create_state():
     storage.save()
     state.append(new.to_dict())
     return jsonify(state[0]), 201
+
 
 @app_views.route('/states/<state_id>', methods=['PUT'])
 def updates_state(state_id):
