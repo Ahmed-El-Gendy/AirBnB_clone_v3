@@ -36,3 +36,33 @@ def delete_state(state_id):
             storage.delete(obj)
             storage.save()
     return jsonify({}), 200
+
+@app_views.route('/states/', methods=['POST'])
+def create_state():
+    '''Creates'''
+    if not request.get_json():
+        abort(400, 'Not a JSON')
+    if 'name' not in request.get_json():
+        abort(400, 'Missing name')
+    state = []
+    new = State(name=request.json['name'])
+    storage.new(new)
+    storage.save()
+    state.append(new.to_dict())
+    return jsonify(state[0]), 201
+
+@app_views.route('/states/<state_id>', methods=['PUT'])
+def updates_state(state_id):
+    '''Update'''
+    states = storage.all("State").values()
+    state = [inst.to_dict() for inst in states if inst.id == state_id]
+    if state == []:
+        abort(404)
+    if not request.get_json():
+        abort(400, 'Not a JSON')
+    state[0]['name'] = request.json['name']
+    for ustate in states:
+        if ustate.id == state_id:
+            ustate.id.name = request.json['name']
+    storage.save()
+    return jsonify(state[0]), 200
