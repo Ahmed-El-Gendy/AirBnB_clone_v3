@@ -71,14 +71,19 @@ class FileStorage:
 
     def get(self, cls, id):
         """get all cls"""
-        all_cls = self.all(cls)
-        check = cls + '.' + id
-        for key, value in all_cls.items():
-            if key == check:
-                return value
+        if cls and id:
+            if cls in classes.values():
+                obj = self.all(cls)
+                for val in obj.values():
+                    if val.id == id:
+                        return val
         return None
 
     def count(self, cls=None):
         """count the cls"""
-        all_cls = self.all(cls)
-        return len(all_cls)
+        if cls in classes.values():
+            return len(self.all(cls))
+        if not cls:
+            return len(self.all())
+        if cls not in classes.values():
+            return
