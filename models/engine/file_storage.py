@@ -82,3 +82,4 @@ class FileStorage:
         """count the cls"""
         all_cls = self.all(cls)
         return len(all_cls)
+    
